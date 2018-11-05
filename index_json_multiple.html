@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+    <div class="container">
+        <h1>Vue Inline-table multiple row edit [WIP]</h1>
+      <button @click="fetchAPI()">Refresh Data</button>
+      <table border="2">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>callsign</th>
+            <th>gender</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="member in members">
+            <td v-if="member.edit==false" @click="openAPI(member,1)">{{member.name}}</td>
+            <td v-if="member.edit==true"  @keyup.enter="closeAPI(member,1)" @blur="closeAPI(member,1)"><input v-model="member.name"></td>
+            
+            <td v-if="member.edit==false" @click="openAPI(member,2)">{{member.callsign}}</td>
+            <td v-if="member.edit==true" @keyup.enter="closeAPI(member,2)" @blur="closeAPI(member,2)"><input v-model="member.callsign"></td>
+
+            <td v-if="member.edit==false" @click="openAPI(member,3)">{{member.gender}}</td>
+            <td v-if="member.edit==true" @keyup.enter="closeAPI(member,3)" @blur="closeAPI(member,3)"><input v-model="member.gender"></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      app = new Vue({
+        el: ".container",
+        data: {
+          before: "",
+          after: [],
+          members: []
+        },
+        methods: {
+          openAPI: function(val,id){
+            if (id == 1){ this.before = val.name}
+            if (id == 2){ this.before = val.callsign}
+            if (id == 3){ this.before = val.gender}
+            
+            val.edit=true
+          },
+          closeAPI:function(val){
+            this.after.push(val.name)
+            this.after.push(val.callsign)
+            this.after.push(val.gender)
+            val.edit=false
+            this.log()
+          },
+          log:function(){
+            console.log(this.before+ " changed to " + this.after)
+            this.after = []
+          },
+          fetchAPI: function(){
+            fetch('members.json')
+              .then(response => response.json())
+              .then(json => {
+                this.members = json.members
+              })
+          },
+        },
+        created(){
+            this.fetchAPI()
+        }
+      })
+    </script>
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>
