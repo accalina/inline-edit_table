@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+    <div class="container">
+      <button @click="fetchAPI()">Refresh Data</button>
+      <table border="2">
+        <thead>
+          <tr>
+            <th>name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="member in members">
+            
+            <td v-if="member.edit==false" @click="openAPI(member)">{{member.name}}</td>
+            <td v-if="member.edit==true"  @blur="closeAPI(member)" @keyup.enter="closeAPI(member)"><input v-model="member.name"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      app = new Vue({
+        el: ".container",
+        data: {
+          before: "",
+          after: "",
+          members: []
+        },
+        methods: {
+          openAPI: function(val){
+            this.before = val.name
+            val.edit=true
+          },
+          closeAPI:function(val){
+            this.after = val.name
+            val.edit=false
+            this.log()
+          },
+          log:function(){
+            console.log(this.before+ " changed to " + this.after)
+          },
+          fetchAPI: function(){
+            fetch('members.json')
+              .then(response => response.json())
+              .then(json => {
+                this.members = json.members
+              })
+          },
+        },
+        created(){
+            this.fetchAPI()
+        }
+      })
+    </script>
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>

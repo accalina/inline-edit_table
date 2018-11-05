@@ -1,0 +1,60 @@
+{
+    "members": [
+        {
+            "id": 1,
+            "name": "will",
+            "callsign": "eagle",
+            "gender": "male",
+            "edit": false
+        },
+        {
+            "id": 2,
+            "name": "ako",
+            "callsign": "dragon",
+            "gender": "female",
+            "edit": false
+        },
+        {
+            "id": 3,
+            "name": "seth",
+            "callsign": "wolf",
+            "gender": "male",
+            "edit": false
+        },
+        {
+            "id": 4,
+            "name": "lily",
+            "callsign": "shark",
+            "gender": "female",
+            "edit": false
+        },
+        {
+            "id": 5,
+            "name": "claire",
+            "callsign": "fox",
+            "gender": "female",
+            "edit": false
+        },
+        {
+            "id": 6,
+            "name": "trey",
+            "callsign": "owl",
+            "gender": "male",
+            "edit": false
+        },
+        {
+            "id": 7,
+            "name": "liz",
+            "callsign": "vampire",
+            "gender": "female",
+            "edit": false
+        },
+        {
+            "id": 8,
+            "name": "sara",
+            "callsign": "tiger",
+            "gender": "female",
+            "edit": false
+        }
+    ]
+}
